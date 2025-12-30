@@ -1,5 +1,5 @@
 #include <sys/utsname.h>
-#include <stdio.h>
+
 #include "extern.h"
 
 void
@@ -9,4 +9,3 @@ getkernver(void)
 	uname(&sys);
 	iprint("Kernel:     ", sys.release);
 }
-

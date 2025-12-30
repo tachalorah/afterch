@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2022,2023,2024 tch69 <ifa26417@aol.com>
- *
- * Permission to use, copy, modify, and distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
-
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,29 +6,37 @@
 
 #include "extern.h"
 
-#define C_RESET 	"\033[0m"
-#define C_RED 		"\033[1;31m"
-#define C_GREEN 	"\033[1;32m"
-#define C_YELLOW 	"\033[1;33m"
-#define C_BLUE 		"\033[1;34m"
-#define C_MAGENTA 	"\033[1;35m"
-#define C_CYAN	 	"\033[1;36m"
-#define C_WHITE 	"\033[1;39m"
+#define C_RESET	  "\033[0m"
+#define C_RED	  "\033[1;31m"
+#define C_GREEN	  "\033[1;32m"
+#define C_YELLOW  "\033[1;33m"
+#define C_BLUE	  "\033[1;34m"
+#define C_MAGENTA "\033[1;35m"
+#define C_CYAN	  "\033[1;36m"
+#define C_WHITE	  "\033[1;39m"
 
-static void getshell(void) { iprint("Shell:      ", getenv("SHELL")); }
-static void getterm(void)  { iprint("Terminal:   ", getenv("TERM")); }
-
-static char
-*strloop(const char *restrict x, const int y)
+static void
+getshell(void)
 {
-	if (x && y > 0)
-	{
+	iprint("Shell:      ", getenv("SHELL"));
+}
+
+static void
+getterm(void)
+{
+	iprint("Terminal:   ", getenv("TERM"));
+}
+
+static char *
+strloop(const char *restrict x, const int y)
+{
+	if (x && y > 0) {
 		size_t len = strlen(x) * y;
 		char *buf = malloc(len + 1);
 		if (buf == NULL)
 			return (NULL);
 		for (int i = 0; i < y; i++)
-			(void) memcpy(buf + (i * strlen(x)), x, strlen(x));
+			(void)memcpy(buf + (i * strlen(x)), x, strlen(x));
 		buf[len] = '\0';
 		return (buf);
 	}
@@ -60,14 +52,10 @@ main(void)
 	gethostname(hostname, sizeof(hostname));
 
 	printf("\n  %s--->%s     %s%s%s@%s%s%s\n", C_MAGENTA, C_RESET, C_GREEN,
-			getlogin(), C_YELLOW, C_RED, strtok(hostname, "."), C_RESET);
+	    getlogin(), C_YELLOW, C_RED, strtok(hostname, "."), C_RESET);
 	printf("  %s%s>%s\n\n", C_MAGENTA, strloop("-", 32), C_RESET);
 
-	getsysname(),
-	getkernver(),
-	getshell(),
-	getterm(),
-	getuptime();
+	getsysname(), getkernver(), getshell(), getterm(), getuptime();
 
 	puts("");
 
@@ -84,6 +72,6 @@ main(void)
 void
 iprint(char *text, char *info)
 {
-	printf("     %s->%s %s%s%s%s\n", C_CYAN, C_RESET, C_BLUE,
-			text,  C_RESET, info);
+	printf("     %s->%s %s%s%s%s\n", C_CYAN, C_RESET, C_BLUE, text, C_RESET,
+	    info);
 }
